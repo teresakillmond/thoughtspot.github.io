@@ -30,3 +30,8 @@ Refer to [Using the `cluster create` command]({{ site.baseurl }}/appliance/hardw
 **Host IPs**	Enter the IP addresses of all cluster hosts, in the form 000.000.000.000. For example, 192.168.7.70. Use spaces instead of commas to separate multiple IP addresses.
 
 **Email alerts**	Enter the email addresses you would like to receive alerts about this cluster, in the form company@example.com. The address prod-alerts@thoughtspot.com should remain, so that ThoughtSpot can be aware of the status of your cluster. Separate email addresses with a space.
+
+## References
+[Using the cluster create command]({{ site.baseurl }}/appliance/hardware/cluster%20create.html)
+
+[Installing the Super Micro Computer]({{ site.baseurl }}/appliance/hardware/installing%20the%20smc.html)

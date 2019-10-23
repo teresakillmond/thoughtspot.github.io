@@ -47,3 +47,8 @@ See [Parameters of `nodes.config`]({{ site.baseurl }}/appliance/hardware/paramet
 **IPv4**	The main IP address, associated with DataNetmask and DataGateway, in the form 000.000.000.000. For example, 192.168.7.70.  
 
 **IPMI IPv4**	A secondary IP address, associated with the IPMINetmask and IPMIGateway, in the form 000.000.000.000. For example, 192.168.5.70.
+
+## References
+[The nodes.config file]({{ site.baseurl }}/appliance/hardware/nodesconfig-example.html)
+
+[Installing the Super Micro Computer]({{ site.baseurl }}/appliance/hardware/installing%20the%20smc.html)

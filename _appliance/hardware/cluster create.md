@@ -66,3 +66,7 @@ Broadcast message from root@ip-192-168-7-70(Sun 2018-09-30 23:04:32 UTC):
 
 The system is going down for reboot at Sun 2018-09-30 23:05:32 UTC!
 ```
+## References
+[Parameters of the cluster create command]({{ site.baseurl }}/appliance/hardware/parameters-cluster-create.html)
+
+[Installing the Super Micro Computer]({{ site.baseurl }}/appliance/hardware/installing%20the%20smc.html)

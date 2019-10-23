@@ -78,3 +78,7 @@ $ vim nodes.config
   }  
 }
 ```
+## References
+[Parameters of the nodes.config file]({{ site.baseurl }}/appliance/hardware/parameters-nodesconfig.html)
+
+[Installing the Super Micro Computer]({{ site.baseurl }}/appliance/hardware/installing%20the%20smc.html)
