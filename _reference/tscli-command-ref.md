@@ -1,14 +1,14 @@
 ---
 title: [tscli command reference]
 last_updated: 10/17/2019
-summary: "The ThoughtSpot command line interface, or `tscli`, is an administration interface for the cluster. Use `tscli` to take snapshots (backups) of data, apply
+summary: "The ThoughtSpot command line interface, or tscli, is an administration interface for the cluster. Use tscli to take snapshots (backups) of data, apply
 updates, stop and start the services, and view information about the system.
 This reference defines each subcommand."
 sidebar: mydoc_sidebar
 permalink: /:collection/:path.html
 ---
 
-The command returns `0` on success, and a non-zero exit codes on failure.
+The command returns `0` on success, and a non-zero exit code on failure.
 The `tscli` command logs errors to the `stderr` directory.
 
 {: id="tscli-command"}
@@ -23,15 +23,9 @@ tscli [-h]
       [--noautoconfig]
       [--autoconfig]
       [--yes]
-      [--cluster <<em>cluster</em>>]
-      [--zoo <<em>zookeeper</em>>]
-      [--username <<em>username</em>>]
-      [--identity_file <<em>identity_file</em>>]
-      {access, alert, ansible, backup, backup-policy, callhome, cassandra,
-       cluster, command, dr-mirror, etl, event, feature, fileserver,
-       firewall, hdfs, ipsec, ldap, logs, map-tiles, monitoring, nas,
-       node, patch, rpackage, saml, scheduled-pinboards, smtp, snapshot,
-       snapshot-policy, spot, sssd, ssl, storage, support,
+      [--cluster CLUSTER]
+      [--zoo ZOO]
+      {access, alert, ansible, backup, backup-policy, calendar, callhome, cassandra, cluster, command, dr-mirror, etl, event, feature, fileserver, firewall, hdfs, ipsec, ldap, logs, map-tiles, monitoring, nas, node, patch, rpackage, saml, scheduled-pinboards, set, smtp, snapshot, snapshot-policy, spot, sssd, ssl, storage, support,
        tokenauthentication}
 </pre>
 
