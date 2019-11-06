@@ -29,7 +29,7 @@ tscli [-h]
        cluster, command, dr-mirror, etl, event, feature, fileserver,
        firewall, hdfs, ipsec, ldap, logs, map-tiles, monitoring, nas,
        node, notification, onboarding, patch, rpackage, saml, scheduled-pinboards, set, smtp, snapshot,
-       snapshot-policy, socialproof spot, sssd, ssl, storage, support,
+       snapshot-policy, socialproof, spot, ssl, sssd, storage, support,
        tokenauthentication}
 </pre>
 
@@ -117,7 +117,7 @@ This subcommand has the following options:
 
   <dlentry>
     <dt><code>tscli alert info</code></dt>
-    <dd>Lists all alerts. Add <code>silenced</code> to list only silenced alerts, <code>active</code> to list only active alerts, or <code>detailed</code> to get detailed alert information.</dd>
+    <dd>Lists all alerts. Add <code>--silenced</code> to list only silenced alerts, <code>--active</code> to list only active alerts, or <code>--detailed</code> to get detailed alert information.</dd>
   </dlentry>
 
   <dlentry>
@@ -153,7 +153,7 @@ This subcommand has the following options:
 
   <dlentry>
     <dt><code>tscli alert silence --name NAME</code></dt>
-    <dd>Silences the alert with <code>NAME</code>. For example, <code>DISK_ERROR</code>. Silenced alerts are still recorded in postgres, however emails are not sent out.</dd>
+    <dd>Silences the alert with <code>NAME</code>. For example, <code>DISK_ERROR</code>. Silenced alerts are still recorded in postgres; however, emails are not sent out.</dd>
   </dlentry>
 
   <dlentry>
@@ -283,7 +283,7 @@ tscli backup [-h] {create,delete,ls,restore}
         </dlentry>
         <dlentry>
         <dt><code>--enable_cloud_storage</code></dt>
-          <dd>Determines whether to enable Cloud Storage setup.</dd>
+          <dd>Enables object storage, on the specified platform, either <code>s3a</code> or <code>gcs</code>.</dd>
         </dlentry>
         <dlentry>
         <dt>--heterogeneous</dt>
@@ -321,15 +321,15 @@ This subcommand has the following options:
     </dd></dlentry>
 
   <dlentry>
-    <dt><code>tscli backup-policy delete name</code></dt>
+    <dt><code>tscli backup-policy delete NAME</code></dt>
     <dd>Deletes the backup policy <code>name</code>.</dd></dlentry>
 
   <dlentry>
-    <dt><code>tscli backup-policy disable name</code></dt>
+    <dt><code>tscli backup-policy disable NAME</code></dt>
     <dd>Disables the policy <code>name</code>.</dd></dlentry>
 
   <dlentry>
-    <dt><code>tscli backup-policy enable name</code></dt>
+    <dt><code>tscli backup-policy enable NAME</code></dt>
     <dd>Enables the policy <code>name</code>.</dd></dlentry>
 
   <dlentry>
@@ -337,15 +337,15 @@ This subcommand has the following options:
     <dd>Lists backup policies.</dd></dlentry>
 
   <dlentry>
-    <dt><code>tscli backup-policy show name</code></dt>
+    <dt><code>tscli backup-policy show NAME</code></dt>
     <dd>Shows the backup policy <code>name</code>.</dd></dlentry>
 
   <dlentry>
-    <dt><code>tscli backup-policy status name</code></dt>
+    <dt><code>tscli backup-policy status NAME</code></dt>
     <dd>Shows the status of the backup policy <code>name</code>.</dd></dlentry>
 
   <dlentry>
-    <dt><code>tscli backup-policy update name</code></dt>
+    <dt><code>tscli backup-policy update NAME</code></dt>
     <dd>Prompts an editor for you to edit the backup policy <code>name</code>.</dd></dlentry>
 </dl>
 
@@ -761,22 +761,87 @@ This subcommand has the following options:
 
   <dlentry>
     <dt><code>tscli cluster set-min-resource-spec</code></dt>
-    <dd>Sets the minimum resource configuration of the cluster.</dd></dlentry>
+    <dd>Sets the minimum resource configuration of the cluster, with the following parameter:
+<dl>
+  <dlentry>
+  <dt><code>--file FILE</code></dt>
+  <dd><p>Specified script with overrides.</p>
+  <p>The default is <code>False</code>.</p></dd>
+  </dlentry></dl></dd></dlentry>
+
+  <dlentry>
+    <dt><code>tscli cluster setup-release-host HOST</code></dt>
+    <dd>Sets up the release host for Self Service Upgrade, with the specified <code>HOST</code>.</dd></dlentry>
+
+  <dlentry>
+    <dt><code>tscli cluster setup-release-host-key</code></dt>
+    <dd>Sets up the release host api key for Self Service Upgrade.</dd></dlentry>  
+
   <dlentry>
     <dt><code>tscli cluster show-resource-spec</code></dt>
     <dd>Prints default or min.</dd></dlentry>
   <dlentry>
     <dt><code>tscli cluster start</code></dt>
     <dd>Starts the cluster.</dd></dlentry>
+
   <dlentry>
     <dt><code>tscli cluster status</code></dt>
-    <dd>Gives the status of the cluster, including release number, date last updated, number of nodes, pending tables time, and services status.</dd></dlentry>
+    <dd>Gives the status of the cluster, including release number, date last updated, number of nodes, pending tables time, and services status. This subcommand has the following parameters:
+  <dl>
+  <dlentry>
+  <dt><code>--mode {basic,service,table,full,reinstall-os}</code>
+  <dd>Specfies the kind of status message you want.</dd></dlentry>
+  <dlentry>
+  <dt><code>--tail</code></dt>
+  <dd><p>Prints the details of creation and update progress.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--no-orion</code></dt>
+  <dd><p>Runs checks not related to orion.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--includes INCLUDES</code</dt>
+  <dd><p>The name of the service to check the status of, either falcon or sage.</p>
+  <p>The default is <code>None</code>.</p></dd></dlentry></dl>
+    </dd></dlentry>
+
   <dlentry>
     <dt><code>tscli cluster stop</code></dt>
     <dd>Pauses the cluster (but does not stop storage services).</dd></dlentry>
+
   <dlentry>
     <dt><code>tscli cluster update</code></dt>
-    <dd>Update existing cluster.</dd></dlentry>
+    <dd>Updates an existing cluster on a specified release, with the following parameters:
+  <dl>
+  <dlentry>
+  <dt><code>--release_version</code></dt>
+  <dd><p>Looks for 'release' in the downloaded tarballs and if found, will update to that tarball.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--dry_run_only</code></dt>
+  <dd><p>Runs only the pre-update checks.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--wait_for_falcon_sage</code></dt>
+  <dd><p>Waits for Falcon and Sage to be in a serving state before marking an update as complete.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--create_snapshot_before_update</code></dt>
+  <dd><p>Creates a snapshot automatically before starting update.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--generate_compare_scoreboard</code></dt>
+  <dd><p>Generates pre-update and post-update scoreboards and compares them.</p>
+  <p>The default is <code>False</code>.</p></dd></dlentry>
+  <dlentry>
+  <dt><code>--update_orion_only</code></dt>
+  <dd>Only updates orion.</dd></dlentry>
+  <dlentry>
+  <dt><code>--ignore_if_unhealthy</code></dt>
+  <dd><p>A comma separated list of node IPs on which upgrade is not attempted in case they are found to be unhealthy. If a node outside of this list is found unhealthy, the upgrade is aborted.</p>
+  <p>The default is <code>None</code>.</p></dd></dlentry></dl>
+    </dd></dlentry>
+
   <dlentry>
     <dt><code>tscli cluster update-hadoop</code></dt>
     <dd>Updates Hadoop/Zookeeper on the cluster.</dd></dlentry>
@@ -791,29 +856,29 @@ This subcommand has the following options:
 tscli command [-h] {run}
 ```
 
-Command to run on all nodes.
+Runs a specified command (`COMMAND`) on all nodes.
 
 This subcommand has the following option:
 <dl>
   <dlentry>
-    <dt><code>tscli command run [-h] [--nodes <em>NODES</em>] --dest_dir <em>DEST_DIR</em> [--copyfirst <em>COPYFIRST</em>] [--timeout <em>TIMEOUT</em>] <em>command</em></code></dt>
+    <dt><code>tscli command run COMMAND</code></dt>
   <dd>
-    <p>These are the parameters:</p>
+    <p>This subcommand has the following parameters:</p>
     <dl>
     <dlentry>
-      <dt><code>--nodes <em>NODES</em></code></dt>
+      <dt><code>--nodes NODES</code></dt>
       <dd>
-        <p>Space-separated IPs of nodes where to run the command.</p>
+        <p>Space-separated IPs of nodes on which to run the command.</p>
         <p>The default setting is <code>all</code>.</p></dd></dlentry>
     <dlentry>
-      <dt><code>--dest_dir <em>DEST_DIR</em></code></dt>
+      <dt><code>--dest_dir DEST_DIR</code></dt>
       <dd>
         <p>Directory to save the files that contain the output from each node.</p>
         <p>This is a mandatory parameter.</p></dd></dlentry>
     <dlentry>
       <dt><code>--copyfirst <em>COPYFIRST</em></code></dt>
       <dd>
-        <p>Copy the executable to required nodes first.</p>
+        <p>Command to copy the executable to required nodes first.</p>
         <p>The default setting is <code>False</code>.</p></dd></dlentry>
     <dlentry>
       <dt><code>--timeout <em>TIMEOUT</em></code></dt>
@@ -837,7 +902,24 @@ This subcommand has the following options:
 <dl>
   <dlentry>
     <dt><code>tscli dr-mirror start</code></dt>
-    <dd>Starts a mirror cluster which will continuously recover from a primary cluster.</dd></dlentry>
+    <dd>Starts a mirror cluster which will continuously recover from a primary cluster, with the following parameters:
+    <dl><dlentry>
+    <dt><code>directory</code></dt>
+    <dd>Directory where backups of primary cluster can be found.</dd></dlentry>
+    <dlentry>
+    <dt><code>nodes</code></dt>
+    <dd>Comma-separated list of IP addresses of nodes in the mirror cluster.</dd></dlentry>
+    <dlentry>
+    <dt><code>cluster_name</code></dt>
+    <dd>The name of the mirror cluster.</dd></dlentry>
+    <dlentry>
+    <dt><code>cluster_id</code></dt>
+    <dd>The ID of the mirror cluster.</dd></dlentry>
+    <dlentry>
+    <dt><code>--email EMAIL</code></dt>
+    <dd><p>Option alert email setting.</p>
+    <p>The default is <code>later</code>.</p></dd></dlentry></dl>
+    </dd></dlentry>
   <dlentry>
     <dt><code>tscli dr-mirror status</code></dt>
     <dd>Checks whether the current cluster is running in mirror mode.</dd></dlentry>
